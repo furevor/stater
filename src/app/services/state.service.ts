@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { NEVER, Observable, of, Subject } from 'rxjs';
 import { ItemsState } from '../assets/item.state.interface';
+import { publishReplay, refCount, startWith } from 'rxjs/operators';
+import { Action } from '../assets/action.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +14,18 @@ export class StateService {
     loading: false
   };
 
-  constructor() { }
+  actions$: Subject<Action> = new Subject<Action>();
+  state$: Observable<ItemsState>;
 
-  getState(): Observable<ItemsState> {
-    return of(this.defaultState);
+  constructor() {
+    this.state$ = this.actions$.pipe(
+      startWith(this.defaultState),
+      publishReplay(1),
+      refCount()
+    );
+  }
+
+  public getState(): Observable<ItemsState> {
+    return this.state$;
   }
 }

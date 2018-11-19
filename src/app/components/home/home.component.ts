@@ -10,8 +10,6 @@ import { StateService } from '../../services/state.service';
 })
 export class HomeComponent implements OnInit {
 
-  state$: Observable<ItemsState>;
-
   constructor(private stateService: StateService) { }
 
   ngOnInit() {
