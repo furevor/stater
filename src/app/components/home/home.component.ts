@@ -13,10 +13,10 @@ export class HomeComponent implements OnInit {
   constructor(private stateService: StateService) { }
 
   ngOnInit() {
-    this.state$ = this.stateService.getState();
-    this.state$.subscribe(state => {
-      console.log('This is your app state', state);
-    });
+    // this.state$ = this.stateService.getState();
+    // this.state$.subscribe(state => {
+    //   console.log('This is your app state', state);
+    // });
   }
 
 }
